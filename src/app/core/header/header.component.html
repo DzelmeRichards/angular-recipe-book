@@ -1,12 +1,16 @@
 <div
-  class="flex p-4 shadow-lg justify-between items-center border-b-2 border-lightBorder bg-lightCardBg dark:bg-dark"
+  class="flex p-4 shadow-lg justify-between items-center bg-lightCardBg dark:bg-darkCardBg"
 >
-  <p>Navigation content</p>
+  <p
+    class="text-lightHeading dark:text-darkHeading font-medium hover:text-lightActive dark:hover:text-darkActive"
+  >
+    Navigation content
+  </p>
 
   <div>
     <button
       (click)="toggleTheme()"
-      class="flex transition-transform hover:scale-125 align-middle text-darkBtnBg"
+      class="flex transition-transform hover:scale-125 align-middle text-lightText dark:text-darkText"
     >
       <span class="material-icons">{{
         isDarkMode ? "light_mode" : "dark_mode"
