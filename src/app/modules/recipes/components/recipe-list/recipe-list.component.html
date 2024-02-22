@@ -1,0 +1,15 @@
+<div class="p-4">
+  <div class="w-full">
+    <button class="btn" (click)="onNewRecipe()">New Recipe</button>
+  </div>
+
+  <div class="w-full">
+    <div>
+      <app-recipe-item
+        *ngFor="let recipe of recipes; let i = index"
+        [recipe]="recipe"
+        [index]="i"
+      ></app-recipe-item>
+    </div>
+  </div>
+</div>

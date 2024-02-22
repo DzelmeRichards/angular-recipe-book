@@ -1,20 +1,49 @@
-<div
-  class="flex p-4 shadow-lg justify-between items-center bg-lightCardBg dark:bg-darkCardBg"
->
-  <p
-    class="text-lightHeading dark:text-darkHeading font-medium hover:text-lightActive dark:hover:text-darkActive"
-  >
-    Navigation content
-  </p>
-
-  <div>
-    <button
-      (click)="toggleTheme()"
-      class="flex transition-transform hover:scale-125 align-middle text-lightText dark:text-darkText"
+<div class="p-4 shadow-lg bg-lightCardBg dark:bg-darkCardBg">
+  <div class="flex justify-between items-center">
+    <ul
+      class="hidden md:flex font-medium text-lightHeading dark:text-darkHeading"
     >
-      <span class="material-icons">{{
-        isDarkMode ? "light_mode" : "dark_mode"
-      }}</span>
+      <li *ngFor="let link of navLinks">
+        <a
+          class="py-2 px-4"
+          [routerLink]="link.path"
+          routerLinkActive="text-lightActive dark:text-darkActive"
+          >{{ link.label }}</a
+        >
+      </li>
+    </ul>
+
+    <button
+      (click)="toggleMenu()"
+      class="text-2xl md:hidden text-lightText dark:text-darkText"
+    >
+      &#9776;
     </button>
+
+    <div>
+      <button
+        (click)="toggleTheme()"
+        class="flex align-middle transition-transform hover:scale-125 text-lightText dark:text-darkText"
+      >
+        <span class="material-icons">{{
+          isDarkMode ? "light_mode" : "dark_mode"
+        }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div [class.hidden]="!isMenuOpen" class="md:hidden">
+    <ul
+      class="flex flex-col font-medium text-lightHeading dark:text-darkHeading"
+    >
+      <li class="flex justify-center" *ngFor="let link of navLinks">
+        <a
+          class="py-2 px-4"
+          [routerLink]="link.path"
+          routerLinkActive="text-lightActive dark:text-darkActive"
+          >{{ link.label }}</a
+        >
+      </li>
+    </ul>
   </div>
 </div>

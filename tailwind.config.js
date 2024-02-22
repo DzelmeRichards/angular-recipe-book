@@ -3,7 +3,12 @@ module.exports = {
   darkMode: "class",
   content: ["./src/**/*.{html,js}"],
   theme: {
-    screens: {},
+    screens: {
+      mobile: "350px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+    },
     colors: {
       lightBodyBg: "#e2e8f0",
       lightCardBg: "#f9f9f9",
@@ -11,6 +16,7 @@ module.exports = {
       lightText: "#334155",
       lightHeading: "#0f172a",
       lightActive: "#0ea5e9",
+      lightDanger: "#ff0000",
 
       darkBodyBg: "#334155",
       darkCardBg: "#0f172a",

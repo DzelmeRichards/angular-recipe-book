@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ThemeService {
-  private isDarkMode = false;
+  isDarkMode = false;
 
   private themeKey = 'theme';
   private darkClassName = 'dark';
@@ -12,10 +12,6 @@ export class ThemeService {
 
   constructor() {
     this.initializeTheme();
-  }
-
-  isDarkTheme(): boolean {
-    return this.isDarkMode;
   }
 
   toggleTheme(): void {
@@ -30,9 +26,11 @@ export class ThemeService {
   }
 
   private initializeTheme(): void {
-    const localstorageTheme = localStorage.getItem(this.themeKey);
+    const localstorageTheme: string | null = localStorage.getItem(
+      this.themeKey
+    );
 
-    const isDeviceDarkmode = window.matchMedia(
+    const isDeviceDarkmode: boolean = window.matchMedia(
       '(prefers-color-scheme: dark)'
     ).matches;
 

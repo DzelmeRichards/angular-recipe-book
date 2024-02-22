@@ -1,0 +1,27 @@
+<div class="p-4">
+  <img [src]="recipe.imagePath" [alt]="recipe.name" class="max-h-[300px]" />
+
+  <h1>{{ recipe.name }}</h1>
+
+  <div class="max-w-44">
+    <app-dropdown #dropdown title="Manage Recipe">
+      <ul>
+        <li
+          class="cursor-pointer px-4 py-2 hover:bg-lightHeading"
+          (click)="onExecuteAction(item.action); dropdown.closeDropdown()"
+          [ngClass]="{ 'hover:rounded-b-md': i === dropdownItems.length - 1 }"
+          *ngFor="let item of dropdownItems; let i = index"
+        >
+          {{ item.name }}
+        </li>
+      </ul>
+    </app-dropdown>
+  </div>
+  <p>{{ recipe.description }}</p>
+
+  <ul>
+    <li *ngFor="let ingredient of recipe.ingredients">
+      <p>{{ ingredient.name }} ({{ ingredient.amount }})</p>
+    </li>
+  </ul>
+</div>

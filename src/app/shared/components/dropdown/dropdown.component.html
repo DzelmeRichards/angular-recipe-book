@@ -1,0 +1,19 @@
+<div class="relative font-semibold">
+  <button
+    class="w-full flex items-center justify-between px-4 py-2 rounded-t-md text-lightText bg-lightBorder hover:bg-lightActive"
+    (click)="toggleDropdown()"
+  >
+    {{ title }}
+
+    <span class="material-icons">{{
+      isOpen ? "expand_less" : "expand_more"
+    }}</span>
+  </button>
+
+  <div
+    class="absolute max-w-44 w-full left-0 z-10 rounded-b-md shadow-lg bg-lightCardBg"
+    *ngIf="isOpen"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

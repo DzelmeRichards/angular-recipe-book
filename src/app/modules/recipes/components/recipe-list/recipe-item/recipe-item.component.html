@@ -1,0 +1,17 @@
+<div class="p-4" routerLinkActive="bg-lightActive dark:bg-darkActive">
+  <a class="cursor-pointer" [routerLink]="[index]">
+    <div class="flex justify-between">
+      <div>
+        <h4>{{ recipe.name }}</h4>
+        <p>{{ recipe.description }}</p>
+      </div>
+
+      <span
+        ><img
+          class="max-h-[100px]"
+          [src]="recipe.imagePath"
+          [alt]="recipe.name"
+      /></span>
+    </div>
+  </a>
+</div>
