@@ -5,9 +5,7 @@ import { Recipe } from 'src/app/shared/models/recipe.model';
 @Component({
   selector: 'app-recipe-item',
   templateUrl: './recipe-item.component.html',
-  styleUrl: './recipe-item.component.scss',
 })
 export class RecipeItemComponent {
   @Input() recipe: Recipe;
-  @Input() index: number;
 }

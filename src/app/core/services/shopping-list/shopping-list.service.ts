@@ -1,67 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
+import {
+  Database,
+  listVal,
+  ref,
+  set,
+  remove,
+  push,
+  child,
+  update,
+} from '@angular/fire/database';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
+import { IngredientDto } from 'src/app/core/services/shopping-list/models/ingredient-dto.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingListService {
-  ingredientsChanged = new Subject<Ingredient[]>();
-  startedEditing = new Subject<number>(); //NAME???
+  constructor(private _db: Database) {}
 
-  private _ingredients: Ingredient[] = [
-    {
-      name: 'Apples',
-      amount: 5,
-    },
-  ];
-
-  getIngredient(index: number): Ingredient {
-    return this._ingredients[index];
+  getIngredients(): Observable<Ingredient[]> {
+    return listVal<Ingredient>(ref(this._db, 'shopping-list'), {
+      keyField: 'id',
+    });
   }
-
-  getIngredients(): Ingredient[] {
-    return this._ingredients.slice();
-  }
-
-  //JA ATKARTOJAS LAI PLUSO NEVIS PIEVIENO
 
   addIngredient(ingredient: Ingredient): void {
-    this._ingredients.push(ingredient);
-
-    this.ingredientsChanged.next(this._ingredients.slice());
+    const newRef = push(child(ref(this._db), 'shopping-list'));
+    set(newRef, ingredient);
   }
-
-  updateIngredient(index: number, newIngredient: Ingredient): void {
-    this._ingredients[index] = newIngredient;
-
-    this.ingredientsChanged.next(this._ingredients.slice());
-  }
-
-  deleteIngredient(index: number): void {
-    this._ingredients.splice(index, 1);
-
-    this.ingredientsChanged.next(this._ingredients.slice());
-  }
-
-  // addIngredients(ingredients: Ingredient[]): void {
-  //   this._ingredients.push(...ingredients);
-
-  //   this.ingredientsChanged.next(this._ingredients.slice());
-  // }
 
   addIngredients(newIngredients: Ingredient[]): void {
-    for (const newIngredient of newIngredients) {
-      const existingIngredientIndex = this._ingredients.findIndex(ing => ing.name === newIngredient.name);
-      if (existingIngredientIndex !== -1) {
-        // Ingredient exists, update the amount.
-        this._ingredients[existingIngredientIndex].amount += newIngredient.amount;
+    update(ref(this._db), this.buildUpdatelist(newIngredients));
+  }
+
+  updateIngredient(id: string, newIngredient: Ingredient): void {
+    set(ref(this._db, `shopping-list/${id}`), newIngredient);
+  }
+
+  deleteIngredient(id: string): void {
+    remove(ref(this._db, `shopping-list/${id}`));
+  }
+
+  private buildUpdatelist(newIngredients: Ingredient[]): IngredientDto {
+    let ingredientDto: IngredientDto = {};
+
+    newIngredients.forEach((ingredient: Ingredient) => {
+      if (ingredient.id) {
+        ingredientDto['/shopping-list/' + ingredient.id] = ingredient;
       } else {
-        // New ingredient, add to the list.
-        this._ingredients.push(newIngredient);
+        const key = push(child(ref(this._db), 'shopping-list')).key;
+        ingredientDto['/shopping-list/' + key] = ingredient;
       }
-    }
-    this.ingredientsChanged.next(this._ingredients.slice());
+    });
+
+    return ingredientDto;
   }
 }

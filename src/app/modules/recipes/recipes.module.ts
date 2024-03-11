@@ -9,7 +9,7 @@ import { RecipesComponent } from 'src/app/modules/recipes/pages/recipes/recipes.
 import { RecipeListComponent } from 'src/app/modules/recipes/components/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from 'src/app/modules/recipes/components/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from 'src/app/modules/recipes/components/recipe-list/recipe-item/recipe-item.component';
-import { RecipeStartComponent } from 'src/app/modules/recipes/components/recipe-start/recipe-start.component';
+import { RecipeHomeComponent } from 'src/app/modules/recipes/components/recipe-home/recipe-home.component';
 import { RecipeEditComponent } from 'src/app/modules/recipes/components/recipe-edit/recipe-edit.component';
 
 @NgModule({
@@ -18,14 +18,14 @@ import { RecipeEditComponent } from 'src/app/modules/recipes/components/recipe-e
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent,
-    RecipeStartComponent,
+    RecipeHomeComponent,
     RecipeEditComponent,
   ],
   imports: [
     CommonModule,
-    RecipesRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    RecipesRoutingModule,
   ],
 })
 export class RecipesModule {}

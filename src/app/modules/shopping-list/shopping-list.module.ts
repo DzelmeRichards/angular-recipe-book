@@ -9,6 +9,6 @@ import { ShoppingEditComponent } from 'src/app/modules/shopping-list/components/
 
 @NgModule({
   declarations: [ShoppingListComponent, ShoppingEditComponent],
-  imports: [CommonModule, ShoppingListRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ShoppingListRoutingModule],
 })
 export class ShoppingListModule {}

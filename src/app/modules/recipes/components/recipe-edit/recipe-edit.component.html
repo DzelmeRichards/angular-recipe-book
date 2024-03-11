@@ -1,63 +1,168 @@
 <div class="p-4">
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-    <div class="flex gap-2">
-      <button [disabled]="!recipeForm.valid" type="submit" class="btn">
+    <div class="flex gap-2 justify-end">
+      <button
+        [disabled]="!recipeForm.valid"
+        type="submit"
+        class="btn btn-primary"
+      >
         Save
       </button>
-      <button type="button" class="btn" (click)="onFinishEditing()">
+      <button type="button" class="btn btn-danger" (click)="onFinishEditing()">
         Cancel
       </button>
     </div>
 
-    <div class="flex flex-col mt-2">
-      <label for="name">Name</label>
-      <input formControlName="name" id="name" type="text" />
-    </div>
+    <div
+      class="mt-4 p-4 border rounded-tl-lg rounded-br-lg border-lightBorder dark:border-darkBorder"
+    >
+      <div class="flex flex-col">
+        <label for="name" class="text-lightHeading dark:text-darkHeading"
+          >Name
+          <span
+            *ngIf="name.errors?.['required'] && (name.dirty || name.touched)"
+            >is required</span
+          ></label
+        >
+        <input
+          formControlName="name"
+          id="name"
+          type="text"
+          class="mt-1 px-2 py-1 rounded border border-lightBorder dark:border-darkBorder bg-lightInputBg dark:bg-darkInputBg"
+        />
+      </div>
 
-    <div class="flex flex-col mt-2">
-      <label for="imagePath">Image URL</label>
-      <input
-        #imagePath
-        formControlName="imagePath"
-        id="imagePath"
-        type="text"
-      />
-    </div>
+      <div class="mt-2 flex flex-col">
+        <label for="imagePath" class="text-lightHeading dark:text-darkHeading"
+          >Image URL
+          <span
+            *ngIf="imagePath.errors?.['required'] && (imagePath.dirty || imagePath.touched)"
+            >is required</span
+          ></label
+        >
+        <input
+          formControlName="imagePath"
+          id="imagePath"
+          type="text"
+          class="mt-1 px-2 py-1 rounded border border-lightBorder dark:border-darkBorder bg-lightInputBg dark:bg-darkInputBg"
+        />
+      </div>
 
-    <div>
-      <img [src]="imagePath.value" />
-    </div>
+      <div class="mt-4 flex justify-center min-h-6">
+        <img
+          *ngIf="imagePath?.value"
+          [src]="imagePath?.value"
+          alt="Invalid image URL"
+          class="rounded max-w-[225px] md:max-w-[280px] text-lightHeading dark:text-darkHeading"
+        />
+      </div>
 
-    <div class="flex flex-col mt-2">
-      <label for="description">Description</label>
-      <textarea
-        formControlName="description"
-        id="description"
-        type="text"
-        rows="6"
-      ></textarea>
-    </div>
+      <div class="mt-2 flex flex-col">
+        <label for="description" class="text-lightHeading dark:text-darkHeading"
+          >Description
+          <span
+            *ngIf="
+              description.errors?.['required'] && (description.dirty || description.touched)
+            "
+            >is required</span
+          ></label
+        >
+        <textarea
+          formControlName="description"
+          id="description"
+          type="text"
+          rows="9"
+          class="mt-1 px-2 py-1 rounded border border-lightBorder dark:border-darkBorder bg-lightInputBg dark:bg-darkInputBg"
+        ></textarea>
+      </div>
 
-    <div formArrayName="ingredients">
-      <div
-        class="flex gap-5 w-full mt-2"
-        *ngFor="let ingredientCtrl of controls; let i = index"
-        [formGroupName]="i"
-      >
-        <input class="w-8/12" type="text" formControlName="name" />
+      <div formArrayName="ingredients">
+        <div
+          class="w-full mt-2 flex flex-col sm:flex-row"
+          *ngFor="
+            let ingredientCtrl of ingredientFormArray.controls;
+            let i = index
+          "
+          [formGroupName]="i"
+        >
+          <div class="w-full sm:w-8/12 md:max-lg:w-6/12">
+            <label
+              [for]="'ingredientName' + i"
+              class="relative text-lightHeading dark:text-darkHeading"
+              >Ingredient
+              <span
+                class="ml-1 absolute text-nowrap"
+                *ngIf="
+                  ingredientCtrl.get('ingredientName').errors?.['required'] &&
+                  (ingredientCtrl.get('ingredientName').touched ||
+                    ingredientCtrl.get('ingredientName').dirty)
+                "
+              >
+                is required</span
+              ></label
+            >
+            <input
+              class="w-full mt-1 px-2 py-1 rounded border border-lightBorder dark:border-darkBorder bg-lightInputBg dark:bg-darkInputBg"
+              type="text"
+              [id]="'ingredientName' + i"
+              formControlName="ingredientName"
+            />
+          </div>
 
-        <input class="w-3/12" type="number" formControlName="amount" />
+          <div class="w-full flex gap-4 sm:ml-4 sm:w-4/12 md:max-lg:w-6/12">
+            <div class="w-full mt-2 sm:mt-0 sm:w-5/8 md:max-lg:4/6">
+              <label
+                [for]="'amount' + i"
+                class="relative text-lightHeading dark:text-darkHeading"
+                >Amount
+                <span
+                  class="ml-1 absolute text-nowrap"
+                  *ngIf="
+                    ingredientCtrl.get('amount').invalid &&
+                    (ingredientCtrl.get('amount').touched ||
+                      ingredientCtrl.get('amount').dirty)
+                  "
+                  ><span
+                    *ngIf="ingredientCtrl.get('amount').errors?.['required']"
+                    >is required</span
+                  >
+                  <span *ngIf="ingredientCtrl.get('amount').errors?.['min']"
+                    >> 0</span
+                  >
+                </span>
+              </label>
+              <input
+                class="w-full mt-1 px-2 py-1 rounded border border-lightBorder dark:border-darkBorder bg-lightInputBg dark:bg-darkInputBg"
+                type="number"
+                [id]="'amount' + i"
+                formControlName="amount"
+              />
+            </div>
 
-        <button type="button" class="btn" (click)="onDeleteIngredient(i)">
-          X
+            <div class="flex items-end">
+              <button
+                type="button"
+                class="btn btn-danger sm:w-3/8 md:max-lg:2/6"
+                (click)="onDeleteIngredient(i)"
+              >
+                X
+              </button>
+            </div>
+          </div>
+
+          <hr class="mt-9 border-lightBorder dark:border-darkBorder" />
+        </div>
+      </div>
+
+      <div class="mt-5 flex justify-end">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onAddIngredient()"
+        >
+          Add Ingredient
         </button>
       </div>
-    </div>
-
-    <div class="mt-5">
-      <button type="button" class="btn" (click)="onAddIngredient()">
-        Add Ingredient
-      </button>
     </div>
   </form>
 </div>

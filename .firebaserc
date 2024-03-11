@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-recipe-book-31f51": {
+      "hosting": {
+        "angular-recipe-book": [
+          "angular-recipe-book-31f51"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-recipe-book-31f51"
+  }
+}

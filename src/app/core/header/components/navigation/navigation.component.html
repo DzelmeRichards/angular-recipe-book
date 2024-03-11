@@ -1,0 +1,14 @@
+<ul class="flex" [ngClass]="direction === 'row' ? 'flex-row' : 'flex-col'">
+  <li
+    *ngFor="let link of navLinks"
+    class="font-medium text-lightHeading dark:text-darkHeading"
+    [ngClass]="{ 'flex justify-center': direction === 'column' }"
+  >
+    <a
+      class="py-2 px-4"
+      [routerLink]="link.path"
+      routerLinkActive="text-lightActive dark:text-darkActive"
+      >{{ link.label }}</a
+    >
+  </li>
+</ul>

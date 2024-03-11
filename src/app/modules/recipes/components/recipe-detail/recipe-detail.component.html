@@ -1,27 +1,81 @@
-<div class="p-4">
-  <img [src]="recipe.imagePath" [alt]="recipe.name" class="max-h-[300px]" />
-
-  <h1>{{ recipe.name }}</h1>
-
-  <div class="max-w-44">
-    <app-dropdown #dropdown title="Manage Recipe">
-      <ul>
-        <li
-          class="cursor-pointer px-4 py-2 hover:bg-lightHeading"
-          (click)="onExecuteAction(item.action); dropdown.closeDropdown()"
-          [ngClass]="{ 'hover:rounded-b-md': i === dropdownItems.length - 1 }"
-          *ngFor="let item of dropdownItems; let i = index"
-        >
-          {{ item.name }}
-        </li>
-      </ul>
-    </app-dropdown>
+<div class="p-4 w-full flex flex-col items-center">
+  <div class="hidden sm:flex w-full justify-end">
+    <div class="w-full max-w-40">
+      <app-dropdown #dropdown title="Manage">
+        <ul>
+          <li
+            class="cursor-pointer px-4 py-2 bg-lightBtnPrimaryBg dark:bg-darkBtnPrimaryBg hover:text-lightActive dark:hover:text-darkActive active:bg-lightBtnPrimaryActive dark:active:bg-darkBtnPrimaryActive"
+            (click)="onExecuteAction(item.action); dropdown.closeDropdown()"
+            *ngFor="let item of dropdownItems; let i = index"
+            [ngClass]="{ 'rounded-b-md': i === dropdownItems.length - 1 }"
+          >
+            {{ item.name }}
+          </li>
+        </ul>
+      </app-dropdown>
+    </div>
   </div>
-  <p>{{ recipe.description }}</p>
 
-  <ul>
-    <li *ngFor="let ingredient of recipe.ingredients">
-      <p>{{ ingredient.name }} ({{ ingredient.amount }})</p>
-    </li>
-  </ul>
+  <div
+    class="w-full gap-4 flex flex-col mobile:items-center mobile:w-2/3 sm:hidden"
+  >
+    <button
+      *ngFor="let item of dropdownItems"
+      class="btn w-full"
+      [ngClass]="item.class"
+      (click)="onExecuteAction(item.action)"
+    >
+      {{ item.name }}
+    </button>
+  </div>
+
+  <h1
+    class="mt-4 text-lg font-semibold text-lightHeading dark:text-darkHeading"
+  >
+    {{ recipe?.name }}
+  </h1>
+
+  <div class="mt-4 w-full flex flex-col sm:flex-row md:flex-col lg:flex-row">
+    <div class="w-full flex justify-center sm:w-1/2 md:w-full lg:w-1/2">
+      <div class="mt-4 max-w-[250px] h-auto overflow-hidden rounded-lg">
+        <img [src]="recipe?.imagePath" [alt]="recipe?.name" />
+      </div>
+    </div>
+
+    <div
+      class="mt-4 w-full flex flex-col items-center sm:w-1/2 sm:max-md:ml-4 md:w-full lg:w-1/2 lg:ml-4"
+    >
+      <div class="w-full">
+        <h2 class="pl-4 font-semibold text-lightHeading dark:text-darkHeading">
+          Ingredients:
+        </h2>
+
+        <ul>
+          <li
+            *ngFor="let ingredient of recipe?.ingredients"
+            class="pl-4 border-b border-lightBorder dark:border-darkBorder"
+          >
+            <p>
+              {{ ingredient?.ingredientName }}
+              (<span class="text-lightHeading dark:text-darkHeading">{{
+                ingredient?.amount
+              }}</span
+              >)
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mt-6 p-4 w-full border border-l-8 rounded-tr-lg rounded-bl-lg border-lightBorder dark:border-darkBorder"
+  >
+    <h2
+      class="text-center font-semibold text-lightHeading dark:text-darkHeading"
+    >
+      Description:
+    </h2>
+    <p class="my-4 text-justify">{{ recipe?.description }}</p>
+  </div>
 </div>

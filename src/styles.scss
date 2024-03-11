@@ -4,9 +4,25 @@
 
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
-  @apply border rounded border-lightDanger;
+  @apply border-lightDanger dark:border-darkDanger;
 }
 
 .btn {
-  @apply bg-lightText text-lightCardBg font-bold py-2 px-4 rounded hover:bg-darkText active:bg-darkCardBg;
+  @apply font-bold py-[5px] px-4 rounded text-darkHeading disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-80;
+}
+
+.dropdown-btn {
+  @apply bg-lightBtnPrimaryBg text-darkHeading dark:bg-darkBtnPrimaryBg active:bg-lightBtnPrimaryActive dark:active:bg-darkBtnPrimaryActive;
+}
+
+.btn-primary {
+  @apply bg-lightBtnPrimaryBg  dark:bg-darkBtnPrimaryBg active:bg-lightBtnPrimaryActive dark:active:bg-darkBtnPrimaryActive;
+}
+
+.btn-secondary {
+  @apply bg-lightBtnSecondaryBg  dark:bg-darkBtnSecondaryBg active:bg-lightBtnSecondaryActive dark:active:bg-darkBtnSecondaryActive;
+}
+
+.btn-danger {
+  @apply bg-lightBtnDangerBg  dark:bg-darkBtnDangerBg active:bg-lightBtnDangerActive dark:active:bg-darkBtnDangerActive;
 }

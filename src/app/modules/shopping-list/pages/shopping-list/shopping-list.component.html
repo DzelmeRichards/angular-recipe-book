@@ -1,18 +1,29 @@
-<div class="m-5 rounded-lg shadow-lg bg-lightCardBg dark:bg-darkCardBg">
+<div
+  class="m-5 px-4 pt-4 pb-8 rounded-lg shadow-lg bg-lightCardBg dark:bg-darkCardBg"
+>
   <div class="w-full">
-    <app-shopping-edit></app-shopping-edit>
+    <app-shopping-edit
+      [editedIngredient]="editedIngredient"
+      (addIngredient)="onUpdateOrAddIngredient($event)"
+      (clearEditedIngredient)="onClearEditedIngredient()"
+    ></app-shopping-edit>
 
-    <hr />
+    <hr class="mt-4 border-lightBorder dark:border-darkBorder" />
 
-    <ul>
-      <li>
+    <ul class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+      <li class="mt-2" *ngFor="let ingredient of ingredients; let i = index">
         <p
-          class="pointer"
-          *ngFor="let ingredient of ingredients; let i = index"
-          (click)="onEditItem(i)"
+          class="cursor-pointer hover:text-lightActive"
+          (click)="onEditIngredient(ingredient)"
         >
-          {{ ingredient.name }} ({{ ingredient.amount }})
+          {{ ingredient.ingredientName }}
+          (<span class="text-lightHeading dark:text-darkHeading">{{
+            ingredient.amount
+          }}</span
+          >)
         </p>
+
+        <hr class="mt-2 border-lightBorder dark:border-darkBorder" />
       </li>
     </ul>
   </div>

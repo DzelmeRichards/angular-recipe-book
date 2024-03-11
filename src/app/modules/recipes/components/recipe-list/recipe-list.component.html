@@ -1,15 +1,10 @@
 <div class="p-4">
-  <div class="w-full">
-    <button class="btn" (click)="onNewRecipe()">New Recipe</button>
-  </div>
+  <button class="btn btn-primary" (click)="onNewRecipe()">New Recipe</button>
 
-  <div class="w-full">
-    <div>
-      <app-recipe-item
-        *ngFor="let recipe of recipes; let i = index"
-        [recipe]="recipe"
-        [index]="i"
-      ></app-recipe-item>
-    </div>
+  <div class="mt-4">
+    <app-recipe-item
+      *ngFor="let recipe of recipes; trackBy: recipeTrackBy"
+      [recipe]="recipe"
+    ></app-recipe-item>
   </div>
 </div>

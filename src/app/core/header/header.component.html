@@ -1,21 +1,12 @@
 <div class="p-4 shadow-lg bg-lightCardBg dark:bg-darkCardBg">
   <div class="flex justify-between items-center">
-    <ul
-      class="hidden md:flex font-medium text-lightHeading dark:text-darkHeading"
-    >
-      <li *ngFor="let link of navLinks">
-        <a
-          class="py-2 px-4"
-          [routerLink]="link.path"
-          routerLinkActive="text-lightActive dark:text-darkActive"
-          >{{ link.label }}</a
-        >
-      </li>
+    <ul class="hidden sm:flex">
+      <app-navigation direction="row"></app-navigation>
     </ul>
 
     <button
       (click)="toggleMenu()"
-      class="text-2xl md:hidden text-lightText dark:text-darkText"
+      class="text-2xl sm:hidden text-lightText dark:text-darkText"
     >
       &#9776;
     </button>
@@ -32,18 +23,7 @@
     </div>
   </div>
 
-  <div [class.hidden]="!isMenuOpen" class="md:hidden">
-    <ul
-      class="flex flex-col font-medium text-lightHeading dark:text-darkHeading"
-    >
-      <li class="flex justify-center" *ngFor="let link of navLinks">
-        <a
-          class="py-2 px-4"
-          [routerLink]="link.path"
-          routerLinkActive="text-lightActive dark:text-darkActive"
-          >{{ link.label }}</a
-        >
-      </li>
-    </ul>
+  <div [class.hidden]="!isMenuOpen" class="sm:hidden">
+    <app-navigation direction="column"></app-navigation>
   </div>
 </div>

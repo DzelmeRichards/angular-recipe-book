@@ -1,6 +1,6 @@
 <div class="relative font-semibold">
   <button
-    class="w-full flex items-center justify-between px-4 py-2 rounded-t-md text-lightText bg-lightBorder hover:bg-lightActive"
+    class="w-full px-4 py-[5px] dropdown-btn flex items-center justify-between rounded-t-md"
     (click)="toggleDropdown()"
   >
     {{ title }}
@@ -11,7 +11,7 @@
   </button>
 
   <div
-    class="absolute max-w-44 w-full left-0 z-10 rounded-b-md shadow-lg bg-lightCardBg"
+    class="w-full left-0 z-10 max-w-44 absolute rounded-b-md shadow-lg text-darkHeading"
     *ngIf="isOpen"
   >
     <ng-content></ng-content>
