@@ -1,6 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+
+import { MockComponent } from 'ng-mocks';
+
+import { AppComponent } from 'src/app/app.component';
+import { HeaderComponent } from 'src/app/core/header/header.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,7 +13,7 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent, MockComponent(HeaderComponent)
       ],
     }).compileComponents();
   });

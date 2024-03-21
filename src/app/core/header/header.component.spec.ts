@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { MockComponent } from 'ng-mocks';
+
+import { HeaderComponent } from 'src/app/core/header/header.component';
+import { NavigationComponent } from 'src/app/core/header/components/navigation/navigation.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +11,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderComponent]
+      declarations: [HeaderComponent, MockComponent(NavigationComponent)]
     })
     .compileComponents();
     
