@@ -8,7 +8,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { ShoppingListService } from 'src/app/core/services/shopping-list/shopping-list.service';
@@ -57,8 +62,10 @@ export class ShoppingEditComponent implements OnInit, OnChanges, OnDestroy {
   onClear(): void {
     this.shoppingListForm.reset();
     this.editedIngredient = null;
-    if(this.isEditMode) this.clearEditedIngredient.emit();
-    this.isEditMode = false;
+    if (this.isEditMode) {
+      this.clearEditedIngredient.emit();
+      this.isEditMode = false;
+    }
   }
 
   onSubmit(): void {
