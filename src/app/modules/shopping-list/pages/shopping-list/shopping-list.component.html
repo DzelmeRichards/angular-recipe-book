@@ -1,5 +1,5 @@
 <div
-  class="m-5 px-4 pt-4 pb-8 rounded-lg shadow-lg bg-lightCardBg dark:bg-darkCardBg"
+  class="my-5 px-4 pt-4 pb-8 rounded-lg shadow-lg mobile:mx-5 bg-lightCardBg dark:bg-darkCardBg"
 >
   <div class="w-full">
     <app-shopping-edit
@@ -24,6 +24,12 @@
         </p>
 
         <hr class="mt-2 border-lightBorder dark:border-darkBorder" />
+      </li>
+
+      <li class="mt-8" *ngIf="!ingredients.length">
+        <p class="font-semibold text-lightHeading dark:text-darkHeading">
+          No ingredients in the shopping list
+        </p>
       </li>
     </ul>
   </div>

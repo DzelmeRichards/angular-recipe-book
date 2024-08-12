@@ -53,7 +53,7 @@
           *ngIf="imagePath?.value"
           [src]="imagePath?.value"
           alt="Invalid image URL"
-          class="rounded max-w-[225px] md:max-w-[280px] text-lightHeading dark:text-darkHeading"
+          class="w-full rounded max-w-56 md:max-w-72 text-lightHeading dark:text-darkHeading"
         />
       </div>
 
@@ -145,7 +145,7 @@
                 class="btn btn-danger sm:w-3/8 md:max-lg:2/6"
                 (click)="onDeleteIngredient(i)"
               >
-                X
+                &#x2715;
               </button>
             </div>
           </div>

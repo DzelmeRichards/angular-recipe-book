@@ -4,11 +4,12 @@ import { Subject, switchMap, takeUntil } from 'rxjs';
 
 import { RecipeService } from 'src/app/core/services/recipe/recipe.service';
 import { ShoppingListService } from 'src/app/core/services/shopping-list/shopping-list.service';
+import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
+import { dropdownItems } from 'src/app/modules/recipes/components/recipe-detail/config/manage-shopping-list.config';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeDropdownItem } from 'src/app/modules/recipes/components/recipe-detail/models/dropdown-item.model';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
-import { dropdownItems } from 'src/app/modules/recipes/components/recipe-detail/config/manage-shopping-list.config';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -26,7 +27,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _route: ActivatedRoute,
     private _recipeService: RecipeService,
-    private _shoppingListService: ShoppingListService
+    private _shoppingListService: ShoppingListService,
+    private _loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   private getRecipe(): void {
+    this._loadingService.showLoading();
+
     this._route.params
       .pipe(
         takeUntil(this._unsubscribe$),
@@ -70,11 +74,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (recipe: Recipe) => {
           this.recipe = recipe;
-        },
 
-        error: (err: Error) => {
-          //TODO: Implement global error handling
-          console.log('ERROR', err);
+          this._loadingService.hideLoading();
         },
       });
   }
@@ -86,10 +87,6 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (ingredients: Ingredient[]) => {
           this.ingredients = ingredients;
-        },
-        error: (err: Error) => {
-          //TODO: Implement global error handling
-          console.log('ERROR recipe detail', err);
         },
       });
   }

@@ -1,0 +1,17 @@
+<div
+  class="z-50 gap-2 flex flex-col fixed bottom-5 right-0 mobile:right-5 mobile:ml-5"
+>
+  <div
+    *ngFor="let message of messages$ | async; let i = index"
+    class="flex p-4 pr-1 gap-4 justify-between items-center font-semibold rounded-tr-lg rounded-bl-lg bg-lightBtnDangerBg text-darkHeading dark:bg-darkBtnDangerBg"
+  >
+    <span
+      class="px-2.5 py-1 font-bold rounded-full leading-none text-lightBtnDangerBg bg-lightCardBg"
+      >!</span
+    >
+
+    <span> {{ message }} </span>
+
+    <button class="btn btn-close" (click)="close(i)">&#x2715;</button>
+  </div>
+</div>

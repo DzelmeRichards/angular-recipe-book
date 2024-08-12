@@ -6,6 +6,6 @@ import { DropdownComponent } from 'src/app/shared/components/dropdown/dropdown.c
 @NgModule({
   declarations: [DropdownComponent],
   imports: [CommonModule],
-  exports: [DropdownComponent]
+  exports: [DropdownComponent],
 })
 export class SharedModule {}

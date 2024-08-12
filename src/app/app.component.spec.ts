@@ -5,15 +5,18 @@ import { MockComponent } from 'ng-mocks';
 
 import { AppComponent } from 'src/app/app.component';
 import { HeaderComponent } from 'src/app/core/header/header.component';
+import { LoadingIndicatorComponent } from 'src/app/core/loading-indicator/loading-indicator.component';
+import { PopupMessageComponent } from 'src/app/core/popup-message/popup-message.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       declarations: [
-        AppComponent, MockComponent(HeaderComponent)
+        AppComponent,
+        MockComponent(HeaderComponent),
+        MockComponent(LoadingIndicatorComponent),
+        MockComponent(PopupMessageComponent),
       ],
     }).compileComponents();
   });

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 import { RecipeService } from 'src/app/core/services/recipe/recipe.service';
+import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
 import { Recipe } from 'src/app/shared/models/recipe.model';
 
@@ -18,7 +19,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _recipeService: RecipeService
+    private _recipeService: RecipeService,
+    private _loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -39,16 +41,16 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 
   private getRecipes(): void {
+    this._loadingService.showLoading();
+
     this._recipeService
       .getRecipes()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe({
         next: (recipes) => {
           this.recipes = recipes;
-        },
-        error: (err) => {
-          //TODO: Implement global error handling
-          console.log('ERROR recipe list', err);
+
+          this._loadingService.hideLoading();
         },
       });
   }

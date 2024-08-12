@@ -1,9 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { Subject, of, switchMap, takeUntil } from 'rxjs';
 
 import { RecipeService } from 'src/app/core/services/recipe/recipe.service';
+import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
 import { Recipe } from 'src/app/shared/models/recipe.model';
 
@@ -22,7 +29,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _route: ActivatedRoute,
     private _fb: FormBuilder,
-    private _recipeService: RecipeService
+    private _recipeService: RecipeService,
+    private _loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -79,6 +87,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private initComponentData(): void {
+    this._loadingService.showLoading();
+
     this._route.params
       .pipe(
         takeUntil(this._unsubscribe$),
@@ -94,11 +104,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (recipe: Recipe) => {
           if (recipe) this.populateFormOnEdit(recipe);
-        },
 
-        error: (err) => {
-          //TODO: Implement global error handling
-          console.log('ERROR recipe edit', err);
+          this._loadingService.hideLoading();
         },
       });
   }

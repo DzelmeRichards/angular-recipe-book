@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js, ts}"],
   theme: {
     screens: {
       mobile: "350px",
@@ -45,7 +45,16 @@ module.exports = {
       darkBtnDangerBg: "#5e0101",
       darkBtnDangerActive: "#450000",
     },
-    extend: {},
+    extend: {
+      animation: {
+        loader: "animloader 1s linear infinite",
+      },
+      keyframes: {
+        animloader: {
+          "0%": { left: "0", transform: "translateX(-100%)" },
+          "100%": { left: "100%", transform: "translateX(0%)" },
+        },
+      },
+    },
   },
-  plugins: [],
 };

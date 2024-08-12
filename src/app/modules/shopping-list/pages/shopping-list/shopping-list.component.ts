@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ShoppingListService } from 'src/app/core/services/shopping-list/shopping-list.service';
+import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
@@ -10,12 +11,15 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
   templateUrl: './shopping-list.component.html',
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
-  ingredients: Ingredient[];
+  ingredients: Ingredient[] = [];
   editedIngredient: Ingredient = null;
 
   private _unsubscribe$ = new Subject<void>();
 
-  constructor(private _shoppingListService: ShoppingListService) {}
+  constructor(
+    private _shoppingListService: ShoppingListService,
+    private _loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     this.getIngredients();
@@ -36,7 +40,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   onUpdateOrAddIngredient(addedIngredient: Ingredient): void {
     const duplicate: Ingredient = this.ingredients.find(
-      (ingredient: Ingredient) => ingredient.ingredientName === addedIngredient.ingredientName
+      (ingredient: Ingredient) =>
+        ingredient.ingredientName === addedIngredient.ingredientName
     );
 
     if (duplicate) {
@@ -55,16 +60,16 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   }
 
   private getIngredients(): void {
+    this._loadingService.showLoading();
+
     this._shoppingListService
       .getIngredients()
       .pipe(takeUntil(this._unsubscribe$))
       .subscribe({
         next: (ingredients: Ingredient[]) => {
           this.ingredients = ingredients;
-        },
-        error: (err: Error) => {
-          //TODO: Implement global error handling
-          console.log('ERROR', err);
+
+          this._loadingService.hideLoading();
         },
       });
   }
