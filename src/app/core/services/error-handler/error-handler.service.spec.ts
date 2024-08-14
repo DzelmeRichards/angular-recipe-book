@@ -33,15 +33,17 @@ describe('ErrorHandlerService', () => {
   describe('test handleError()', () => {
     it('should mke expected calls', () => {
       //Arrange
-      const error = 'Error';
+      const catchedError = 'Error';
+      const popupMessage = <any>{ type: 'error', text: catchedError };
+
       const addMessageSpy = spyOn(popupMessageServiceMock, 'addMessage');
       const hideLoadingSpy = spyOn(loadingServiceMock, 'hideLoading');
 
       //Act
-      service.handleError(error);
+      service.handleError(catchedError);
 
       //Assert
-      expect(addMessageSpy).toHaveBeenCalledWith(error);
+      expect(addMessageSpy).toHaveBeenCalledWith(popupMessage);
       expect(hideLoadingSpy).toHaveBeenCalled();
     });
   });

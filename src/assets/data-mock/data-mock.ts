@@ -1,4 +1,4 @@
-import { Recipe } from 'src/app/shared/models/recipe.model';
+import type { Recipe } from 'src/app/shared/models/recipe.model';
 
 export const recipes: Recipe[] = [
   {

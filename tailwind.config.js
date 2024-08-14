@@ -28,6 +28,9 @@ module.exports = {
       lightBtnDangerBg: "#8c0000",
       lightBtnDangerActive: "#450000",
 
+      lightErrorMsgBg: "#8c0000",
+      lightSuccessMsgBg: "#1c7b27",
+
       darkBodyBg: "#334155",
       darkCardBg: "#0f172a",
       darkBorder: "#2f3b4d",
@@ -44,6 +47,9 @@ module.exports = {
       darkBtnSecondaryActive: "#666300",
       darkBtnDangerBg: "#5e0101",
       darkBtnDangerActive: "#450000",
+
+      darkErrorMsgBg: "#5e0101",
+      darkSuccessMsgBg: "#13521a",
     },
     extend: {
       animation: {

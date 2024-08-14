@@ -3,14 +3,33 @@
 >
   <div
     *ngFor="let message of messages$ | async; let i = index"
-    class="flex p-4 pr-1 gap-4 justify-between items-center font-semibold rounded-tr-lg rounded-bl-lg bg-lightBtnDangerBg text-darkHeading dark:bg-darkBtnDangerBg"
+    class="flex p-4 pr-1 gap-4 justify-between items-center font-semibold rounded-tr-lg rounded-bl-lg text-darkHeading"
+    [ngClass]="{
+      'bg-lightErrorMsgBg dark:bg-darkErrorMsgBg': message.type === 'error',
+      'bg-lightSuccessMsgBg dark:bg-darkSuccessMsgBg':
+        message.type === 'success'
+    }"
   >
-    <span
-      class="px-2.5 py-1 font-bold rounded-full leading-none text-lightBtnDangerBg bg-lightCardBg"
-      >!</span
+    <div
+      class="py-1 font-bold leading-none rounded-full bg-darkHeading"
+      [ngClass]="{
+        'px-1.5': message.type === 'success',
+        'px-2.5': message.type === 'error'
+      }"
     >
+      <span
+        *ngIf="message.type === 'error'"
+        class="text-lightErrorMsgBg dark:text-darkErrorMsgBg"
+        >!</span
+      >
+      <span
+        *ngIf="message.type === 'success'"
+        class="text-lightSuccessMsgBg dark:text-darkSuccessMsgBg"
+        >✓</span
+      >
+    </div>
 
-    <span> {{ message }} </span>
+    <span> {{ message.text }} </span>
 
     <button class="btn btn-close" (click)="close(i)">&#x2715;</button>
   </div>

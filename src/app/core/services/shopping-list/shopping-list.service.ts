@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable, tap } from 'rxjs';
 import {
   Database,
   listVal,
@@ -11,14 +11,19 @@ import {
   update,
 } from '@angular/fire/database';
 
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
-import { IngredientDto } from 'src/app/core/services/shopping-list/models/ingredient-dto.model';
+import { PopupMessageService } from 'src/app/core/services/popup-message/popup-message.service';
+
+import type { Ingredient } from 'src/app/shared/models/ingredient.model';
+import type { IngredientDto } from 'src/app/core/services/shopping-list/models/ingredient-dto.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingListService {
-  constructor(private _db: Database) {}
+  constructor(
+    private _db: Database,
+    private _popupMessageService: PopupMessageService
+  ) {}
 
   getIngredients(): Observable<Ingredient[]> {
     return listVal<Ingredient>(ref(this._db, 'shopping-list'), {
@@ -31,8 +36,17 @@ export class ShoppingListService {
     set(newRef, ingredient);
   }
 
-  addIngredients(newIngredients: Ingredient[]): void {
-    update(ref(this._db), this.buildUpdatelist(newIngredients));
+  addIngredients(newIngredients: Ingredient[]): Observable<void> {
+    return from(
+      update(ref(this._db), this.buildUpdatelist(newIngredients))
+    ).pipe(
+      tap(() => {
+        this._popupMessageService.addMessage({
+          text: 'Success: Ingredients sent to shopping list',
+          type: 'success',
+        });
+      })
+    );
   }
 
   updateIngredient(id: string, newIngredient: Ingredient): void {

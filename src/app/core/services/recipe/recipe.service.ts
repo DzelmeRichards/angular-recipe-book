@@ -11,7 +11,7 @@ import {
   child,
 } from '@angular/fire/database';
 
-import { Recipe } from 'src/app/shared/models/recipe.model';
+import type { Recipe } from 'src/app/shared/models/recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {

@@ -4,7 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { ShoppingListService } from 'src/app/core/services/shopping-list/shopping-list.service';
 import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
+import type { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Component({
   selector: 'app-shopping-list',

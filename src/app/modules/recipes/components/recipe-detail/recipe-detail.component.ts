@@ -7,9 +7,9 @@ import { ShoppingListService } from 'src/app/core/services/shopping-list/shoppin
 import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
 import { dropdownItems } from 'src/app/modules/recipes/components/recipe-detail/config/manage-shopping-list.config';
-import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeDropdownItem } from 'src/app/modules/recipes/components/recipe-detail/models/dropdown-item.model';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
+import type { Recipe } from 'src/app/shared/models/recipe.model';
+import type { RecipeDropdownItem } from 'src/app/modules/recipes/components/recipe-detail/models/dropdown-item.model';
+import type { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -112,7 +112,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       }
     );
 
-    this._shoppingListService.addIngredients(preparedIngredients);
+    this._shoppingListService
+      .addIngredients(preparedIngredients)
+      .pipe(takeUntil(this._unsubscribe$))
+      .subscribe();
   }
 
   private onEditRecipe(): void {

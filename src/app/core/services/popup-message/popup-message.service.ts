@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+import type { PopupMessage } from 'src/app/shared/models/popup-message.model';
+
 @Injectable({
   providedIn: 'root',
 })
 export class PopupMessageService {
-  private messages = new BehaviorSubject<string[]>([]);
+  private messages = new BehaviorSubject<PopupMessage[]>([]);
 
-  messages$: Observable<string[]> = this.messages.asObservable();
+  messages$: Observable<PopupMessage[]> = this.messages.asObservable();
 
-  addMessage(message: string): void {
+  addMessage(message: PopupMessage): void {
     this.updateMessages([message, ...this.currentMessages]);
   }
 
@@ -17,11 +19,11 @@ export class PopupMessageService {
     this.updateMessages(this.currentMessages.filter((_, i) => i !== index));
   }
 
-  private get currentMessages(): string[] {
+  private get currentMessages(): PopupMessage[] {
     return this.messages.getValue();
   }
 
-  private updateMessages(messages: string[]): void {
+  private updateMessages(messages: PopupMessage[]): void {
     this.messages.next(messages);
   }
 }

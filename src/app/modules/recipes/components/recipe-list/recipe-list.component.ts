@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { RecipeService } from 'src/app/core/services/recipe/recipe.service';
 import { LoadingService } from 'src/app/core/services/loading/loading.service';
 
-import { Recipe } from 'src/app/shared/models/recipe.model';
+import type { Recipe } from 'src/app/shared/models/recipe.model';
 
 @Component({
   selector: 'app-recipe-list',
