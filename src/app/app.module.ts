@@ -9,9 +9,10 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { CoreModule } from 'src/app/core/core.module';
 
 import { AppComponent } from 'src/app/app.component';
+import { HomeComponent } from 'src/app/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     CoreModule,

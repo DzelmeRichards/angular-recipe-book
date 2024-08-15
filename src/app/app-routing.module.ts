@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { PageNotFoundComponent } from 'src/app/core/page-not-found/page-not-found.component';
+import { HomeComponent } from 'src/app/home/home.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   {
     path: 'home',
-    loadChildren: () =>
-      import('src/app/modules/home/home.module').then((m) => m.HomeModule),
+    component: HomeComponent,
   },
   {
     path: 'recipes',

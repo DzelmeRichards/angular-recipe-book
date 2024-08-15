@@ -1,11 +1,14 @@
 <div
-  class="my-5 pb-4 flex flex-col md:flex-row rounded-lg shadow-lg mobile:mx-5 bg-lightCardBg dark:bg-darkCardBg"
+  class="pb-4 flex flex-col shadow-lg mobile:rounded-lg mobile:my-1 mobile:mx-2 sm:my-4 sm:mx-5 md:flex-row bg-lightCardBg dark:bg-darkCardBg"
 >
-  <div class="w-full md:w-1/2">
+  <div
+    [ngClass]="{ 'max-mlg:hidden': (isNewOrEdit$ | async) }"
+    class="w-full md:w-1/2"
+  >
     <app-recipe-list></app-recipe-list>
   </div>
 
-  <div class="w-full md:w-1/2">
+  <div [ngClass]="{ 'md:w-1/2': !(isNewOrEdit$ | async) }" class="w-full">
     <router-outlet></router-outlet>
   </div>
 </div>
